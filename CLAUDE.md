@@ -121,14 +121,14 @@ A LigueLead pode notificar uma URL externa quando o status de um envio muda (ent
 
 Quando o usuário quiser configurar retorno de status:
 
-1. **Pergunte se já configurou a URL na LigueLead** (área do cliente → Integrações → Webhooks). Essa etapa é feita na plataforma, não via agente.
+1. **Informe que a URL precisa ser colada na plataforma da LigueLead:**
+   > "Acesse areadocliente.liguelead.app.br → Integrações → campo Webhook. Cole lá a URL do seu endpoint receptor."
 2. **Pergunte a URL do endpoint receptor** (onde as notificações vão chegar)
-3. Se o usuário usar n8n ou Make, ofereça criar o nó receptor dentro do mesmo fluxo
+3. Se o usuário usar n8n ou Make, crie o nó receptor no fluxo e forneça a URL gerada para ele colar na LigueLead
 
 **Eventos comuns:** SMS entregue, SMS falhou, ligação atendida, ligação não atendida.
 
-Se o usuário não souber como configurar na LigueLead, oriente:
-> "Acesse areadocliente.liguelead.app.br → Integrações → procure Webhooks ou Callbacks. Se não encontrar, entre em contato com o suporte da LigueLead para habilitar o retorno de status."
+O agente **não** configura o webhook na LigueLead — isso é feito manualmente na plataforma. O agente monta o lado receptor (n8n/Make) e gera a URL.
 
 ---
 
