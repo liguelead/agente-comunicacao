@@ -26,14 +26,10 @@ print "     ✓ Claude CLI encontrado"
 # ── 2. Instalar MCP da LigueLead ────────────────────────────
 print "2/4  Instalando MCP da LigueLead..."
 if [ -n "$API_KEY" ]; then
-  claude mcp add liguelead \
-    --transport http \
-    --header "Authorization: Bearer ${API_KEY}" \
-    https://mcp.liguelead.com.br
+  claude mcp add --transport http liguelead https://mcp.liguelead.com.br \
+    --header "Authorization: Bearer ${API_KEY}"
 else
-  claude mcp add liguelead \
-    --transport http \
-    https://mcp.liguelead.com.br
+  claude mcp add --transport http liguelead https://mcp.liguelead.com.br
 fi
 print "     ✓ MCP instalado"
 
