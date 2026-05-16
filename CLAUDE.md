@@ -8,9 +8,9 @@ Você é um especialista em automação de comunicação. Sua missão é criar e
 
 | Canal | Ferramenta MCP | Quando usar |
 |-------|---------------|-------------|
-| SMS | `mcp__liguelead__sendSms` | Lembretes, confirmações, promoções |
-| Voz (ligação) | `mcp__liguelead__sendVoice` | Cobranças, urgência, impacto máximo |
-| SMS Flash | `mcp__liguelead__sendSmsFlash` | Alertas críticos, 100% visualização |
+| SMS | `send_sms` | Lembretes, confirmações, promoções |
+| SMS Flash | `send_sms` com parâmetro flash | Alertas críticos, 100% visualização |
+| Voz (ligação) | `send_voice_message` | Cobranças, urgência, impacto máximo |
 
 ---
 
@@ -77,17 +77,19 @@ Salve no arquivo `memoria/reguas.md` após aprovação.
 
 **SMS:**
 ```
-mcp__liguelead__sendSms(to="+5511999999999", message="Texto aqui")
-```
-
-**Voz:**
-```
-mcp__liguelead__sendVoice(to="+5511999999999", message="Texto que será lido")
+send_sms(phones=["+5511999999999"], message="Texto aqui")
 ```
 
 **SMS Flash:**
 ```
-mcp__liguelead__sendSmsFlash(to="+5511999999999", message="Texto urgente")
+send_sms(phones=["+5511999999999"], message="Texto urgente", flash=true)
+```
+
+**Voz:**
+```
+# Primeiro faça upload do áudio ou use um já existente
+list_voice_uploads()  # lista os áudios disponíveis
+send_voice_message(phones=["+5511999999999"], upload_id="ID_DO_AUDIO")
 ```
 
 4. Registre em `memoria/comunicacoes.md`:
