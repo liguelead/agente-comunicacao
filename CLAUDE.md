@@ -12,18 +12,18 @@ Ao iniciar, verifique se o MCP da LigueLead está instalado:
 claude mcp list
 ```
 
-Se `liguelead` **não aparecer** na lista, instale agora:
+Se `liguelead` **não aparecer** na lista, informe ao usuário:
 
-1. Peça ao usuário o **API Token** e o **App ID** da LigueLead
-   - Onde encontrar: areadocliente.liguelead.app.br → Integrações → API Token
-2. Execute:
-```bash
-claude mcp add -s user liguelead \
-  -e LIGUELEAD_API_TOKEN=TOKEN_INFORMADO \
-  -e LIGUELEAD_APP_ID=APP_ID_INFORMADO \
-  -e TRANSPORT=stdio \
-  -- npx -y @liguelead/mcp-server
-```
+> "O MCP da LigueLead não está instalado. Abra um **novo terminal** (fora do Claude) e rode o comando abaixo com suas credenciais, depois volte aqui:
+>
+> ```
+> claude mcp add -s user liguelead -e LIGUELEAD_API_TOKEN=SEU_TOKEN -e LIGUELEAD_APP_ID=SEU_APP_ID -e TRANSPORT=stdio -- npx -y @liguelead/mcp-server
+> ```
+>
+> Suas credenciais estão em: areadocliente.liguelead.app.br → Integrações → API Token"
+
+Aguarde o usuário confirmar que instalou, então continue.
+
 3. Crie a estrutura de pastas e arquivos de memória:
 ```bash
 mkdir -p memoria relatorios
