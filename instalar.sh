@@ -32,11 +32,9 @@ print "2/4  Instalando MCP da LigueLead..."
 
 if [ -z "$API_TOKEN" ] || [ -z "$APP_ID" ]; then
   echo ""
-  echo "  Informe suas credenciais LigueLead:"
-  echo "  (Integrações → API Token na área do cliente)"
-  echo ""
-  read -p "  API Token: " API_TOKEN
-  read -p "  App ID:    " APP_ID
+  err "Informe API_TOKEN e APP_ID como argumentos:
+  bash instalar.sh SEU_TOKEN SEU_APP_ID
+  (Obtenha em: areadocliente.liguelead.app.br → Integrações → API Token)"
 fi
 
 claude mcp add -s user liguelead \
