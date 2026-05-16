@@ -2,58 +2,45 @@
 
 Transforma o Claude em um agente especialista em comunicação automatizada, usando **exclusivamente** LigueLead para SMS, Voz e SMS Flash.
 
-## Instalação em 1 comando
+## Passo a passo
 
+### 1. Pegue as credenciais
+Acesse **areadocliente.liguelead.app.br → Integrações → API Token → crie um App**
+Copie o **API Token** e o **App ID**
+
+### 2. Instale o MCP (no terminal)
 ```bash
-curl -fsSL https://raw.githubusercontent.com/liguelead/agente-comunicacao/main/instalar.sh | bash -s -- SUA_API_KEY
+claude mcp add -s user liguelead \
+  -e LIGUELEAD_API_TOKEN=SEU_TOKEN \
+  -e LIGUELEAD_APP_ID=SEU_APP_ID \
+  -e TRANSPORT=stdio \
+  -- npx -y @liguelead/mcp-server
 ```
 
-Isso instala o MCP da LigueLead, cria a estrutura de pastas e os arquivos de memória.
-
-## O que o agente faz
-
-- Cria réguas de comunicação completas a partir da sua dor de negócio
-- Envia SMS, ligações automáticas e SMS Flash via LigueLead MCP
-- Mantém memória persistente em arquivos `.md`
-- Registra todas as comunicações enviadas
-- Aprende com os resultados e sugere otimizações
-
-## Estrutura criada
-
-```
-seu-projeto/
-  CLAUDE.md              ← prompt do agente
-  memoria/
-    reguas.md            ← réguas aprovadas e ativas
-    comunicacoes.md      ← log de todos os envios
-    contatos.md          ← base de contatos
-    aprendizados.md      ← o que funciona
-  relatorios/            ← análises por campanha
-```
-
-## Uso
-
+### 3. Crie e abra o agente
 ```bash
-cd seu-projeto
+mkdir -p agente-liguelead && cd agente-liguelead && \
+curl -fsSL https://raw.githubusercontent.com/liguelead/agente-comunicacao/main/CLAUDE.md -o CLAUDE.md && \
 claude
 ```
 
-Exemplos do que dizer:
-- *"Tenho uma clínica e clientes somem após a 1ª sessão. Cria uma régua de retenção."*
-- *"Envia um SMS de cobrança para +5511999999999"*
-- *"Qual foi o último envio realizado?"*
-- *"Mostra todas as réguas ativas"*
+### 4. Use o agente
+Digite sua dor de negócio. Exemplos:
+- *"Clientes somem após a primeira sessão. Cria uma régua de retenção."*
+- *"Tenho 20% de inadimplência. Quero recuperar sem perder o cliente."*
+- *"Agenda visitas e metade não aparece. Reduz as faltas."*
+
+O agente cria a régua e pode enviar SMS, Voz e SMS Flash diretamente via LigueLead.
 
 ## Canais disponíveis
 
 | Canal | Quando usar |
 |-------|-------------|
 | SMS | Lembretes, confirmações, promoções |
+| SMS Flash | Alertas críticos, 100% visualização |
 | Voz (ligação) | Cobranças, urgência, alto impacto |
-| SMS Flash | Alertas críticos, máxima urgência |
 
 ## Requisitos
-
 - [Claude CLI](https://claude.ai/code) instalado
-- Conta na [LigueLead](https://areadocliente.liguelead.app.br/cadastro?plan=api)
-- API Key da LigueLead
+- Conta na [LigueLead](https://areadocliente.liguelead.app.br/cadastro?plan=api) com API Token e App ID
+- Node.js instalado (para npx)
