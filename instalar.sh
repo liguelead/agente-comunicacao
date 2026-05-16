@@ -35,7 +35,7 @@ print "     ✓ MCP instalado"
 
 # ── 3. Criar estrutura de pastas ────────────────────────────
 print "3/4  Criando estrutura do projeto..."
-mkdir -p memoria relatorios
+mkdir -p memoria relatorios 2>/dev/null || true
 
 # CLAUDE.md — prompt principal do agente
 if [ ! -f CLAUDE.md ]; then
