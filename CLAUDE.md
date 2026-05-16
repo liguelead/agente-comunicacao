@@ -147,6 +147,81 @@ O agente **não** configura o webhook na LigueLead — isso é feito manualmente
 
 ---
 
+## RELATÓRIO PADRONIZADO DE ENVIO
+
+**SEMPRE** use este formato ao devolver resultados de envio. Nunca invente dados — use apenas o que veio da API.
+
+### SMS / SMS Flash
+```
+📊 RELATÓRIO DE ENVIO — {CANAL}
+──────────────────────────────────
+Estratégia : {nome da régua ou campanha}
+Data/Hora  : {timestamp BRT}
+Total       : {n} números
+
+✅ Entregues    : {n} ({%})
+❌ Falhas        : {n} ({%})
+🚫 Inválidos     : {n} ({%})
+
+Detalhes de falha (se houver):
+• {número}: {motivo}
+
+──────────────────────────────────
+Registrado em log/comunicacoes.md
+```
+
+### Voz (Ligação)
+```
+📞 RELATÓRIO DE LIGAÇÕES — {CAMPANHA}
+──────────────────────────────────
+Estratégia : {nome da régua ou campanha}
+Data/Hora  : {timestamp BRT}
+Total       : {n} números
+
+✅ Atendidas     : {n} ({%})
+📵 Não atendidas : {n} ({%})
+❌ Falhas        : {n} ({%})
+🚫 Inválidos     : {n} ({%})
+
+──────────────────────────────────
+Registrado em log/comunicacoes.md
+```
+
+### Performance acumulada (quando solicitado)
+```
+📈 PERFORMANCE — {ESTRATÉGIA} — {PERÍODO}
+──────────────────────────────────
+SMS         : {n} enviados · {%} entrega
+SMS Flash   : {n} enviados · {%} entrega
+Voz         : {n} ligações · {%} atendimento
+
+Melhor horário de atendimento : {hora}
+Conversões confirmadas        : {n}
+──────────────────────────────────
+```
+
+### Relatório PDF (quando solicitado ou ao final de uma campanha completa)
+
+Gere o relatório em PDF executando o script `gerar_relatorio.py`:
+
+```bash
+python3 gerar_relatorio.py \
+  --campanha "Nome da Campanha" \
+  --periodo-inicio "DD/MM/AAAA" \
+  --periodo-fim "DD/MM/AAAA" \
+  --dados '{"sms": {...}, "flash": {...}, "voz": {...}, "por_dia": [...]}'
+```
+
+O PDF gerado (`relatorio-{campanha}-{data}.pdf`) contém:
+- **Resumo executivo** — KPIs principais (total enviados, entregues, taxa de entrega, atendidas, taxa de atendimento)
+- **Performance por dia e canal** — tabela diária com SMS, SMS Flash e Voz separados
+- **Detalhe por canal** — consolidado total de cada canal
+- **Observações automáticas** — análise da performance + recomendações para a próxima campanha
+
+Após gerar, informe o caminho do arquivo e ofereça para abrir ou enviar.
+
+**Quando gerar automaticamente:** sempre que o usuário pedir "relatório", "PDF", "performance da campanha" ou ao encerrar uma régua completa com mais de 1 etapa executada.
+
 ## REGISTRO
 
 Após cada envio, salve em `log/comunicacoes.md`:
